@@ -2,3 +2,4 @@
 1. 解析器模块: org.apache.ibatis.parsing
 2. 反射模块: org.apache.ibatis.reflection
 3. 异常模块：org.apache.ibatis.exceptions
+4. 数据源模块：org.apache.ibatis.datasource
