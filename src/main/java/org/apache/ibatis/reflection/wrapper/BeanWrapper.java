@@ -48,20 +48,28 @@ public class BeanWrapper extends BaseWrapper {
 
     @Override
     public Object get(PropertyTokenizer prop) {
+        // <1> 获得集合类型的属性的指定位置的值
         if (prop.getIndex() != null) {
+            // 获得集合类型的属性
             Object collection = resolveCollection(prop, object);
+            // 获得指定位置的值
             return getCollectionValue(prop, collection);
         } else {
+            // <2> 获得属性的值
             return getBeanProperty(prop, object);
         }
     }
 
     @Override
     public void set(PropertyTokenizer prop, Object value) {
+        // 设置集合类型的属性指定位置的值
         if (prop.getIndex() != null) {
+            // 获得集合类型的属性
             Object collection = resolveCollection(prop, object);
+            // 设置指定位置的值
             setCollectionValue(prop, collection, value);
         } else {
+            // 设置属性的值
             setBeanProperty(prop, object, value);
         }
     }
