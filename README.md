@@ -5,3 +5,4 @@
 4. 数据源模块：org.apache.ibatis.datasource
 5. 事务模块：org.apache.ibatis.transaction
 6. 缓存模块：org.apache.ibatis.cache
+7. 类型模块：org.apache.ibatis.type
