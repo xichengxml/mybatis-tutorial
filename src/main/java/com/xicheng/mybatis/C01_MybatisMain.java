@@ -19,13 +19,12 @@ public class C01_MybatisMain {
     public static void main(String[] args) throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
-        // 代码入口
-        SqlSessionFactory sqlSessionFactory =
-                new SqlSessionFactoryBuilder().build(inputStream);
+        // 配置数据源，扫描Mapper.xml文件
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
+        // 构建sql执行器
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            User user = session.selectOne(
-                    "com.xicheng.mybatis.common.UserMapper.selectBlog", 1);
+            User user = session.selectOne("com.xicheng.mybatis.common.UserMapper.selectBlog", 1);
             System.out.println(user);
         }
     }
