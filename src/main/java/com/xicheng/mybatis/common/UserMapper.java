@@ -1,6 +1,7 @@
 package com.xicheng.mybatis.common;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * description
@@ -11,5 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    User selectBlog(int id);
+    User select(int id);
+
+    User selectByIdAndName(@Param("id") int id, @Param("name") String name);
 }

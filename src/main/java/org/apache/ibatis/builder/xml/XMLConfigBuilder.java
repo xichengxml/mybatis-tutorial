@@ -97,7 +97,7 @@ public class XMLConfigBuilder extends BaseBuilder {
             throw new BuilderException("Each XMLConfigBuilder can only be used once.");
         }
         parsed = true;
-        // *
+        // * 解析全局配置文件
         parseConfiguration(parser.evalNode("/configuration"));
         return configuration;
     }
@@ -372,7 +372,8 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     /**
-     * 解析Mapper.xml文件，四种配置方式解析顺序：package -> resource -> url -> mapperClass
+     * 两种配置方式：package和其他
+     * 解析Mapper.xml文件，配置方式解析顺序：package -> resource -> url -> mapperClass
      * @param parent
      * @throws Exception
      */
@@ -381,11 +382,16 @@ public class XMLConfigBuilder extends BaseBuilder {
             for (XNode child : parent.getChildren()) {
                 if ("package".equals(child.getName())) {
                     String mapperPackage = child.getStringAttribute("name");
+                    // *
                     configuration.addMappers(mapperPackage);
                 } else {
+                    // mapper的文件路径
                     String resource = child.getStringAttribute("resource");
+                    // 远程mapper资源
                     String url = child.getStringAttribute("url");
+                    // 跟package类似，解析的是接口，不是xml
                     String mapperClass = child.getStringAttribute("class");
+                    // 从以下代码还可以看出，上面三个配置最多只能配置一项
                     if (resource != null && url == null && mapperClass == null) {
                         ErrorContext.instance().resource(resource);
                         InputStream inputStream = Resources.getResourceAsStream(resource);

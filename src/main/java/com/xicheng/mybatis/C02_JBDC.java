@@ -32,33 +32,30 @@ public class C02_JBDC {
     public static void main(String[] args) throws Exception {
         selectByPreparedStatement();
         selectByStatement();
+
     }
 
     private static void selectByPreparedStatement() throws Exception {
         Connection connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
 
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-        preparedStatement.setString(1, "1");
+        preparedStatement.setString(1, "1 or 1=1");
 
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            String columnName1 = resultSet.getMetaData().getColumnName(1);
-            String columnName2 = resultSet.getMetaData().getColumnName(2);
-            System.out.println("columnName1: " + columnName1 + "--" + resultSet.getString(1));
-            System.out.println("columnName2: " + columnName2 + "--" + resultSet.getString(2));
-        }
-
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
+        getResult(connection, preparedStatement, resultSet);
     }
 
     private static void selectByStatement() throws Exception {
         Connection connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SQL.replace("?", "1"));
+        String sql = SQL.replace("?", "1 or 1=1");
+        ResultSet resultSet = statement.executeQuery(sql);
 
+        getResult(connection, statement, resultSet);
+    }
+
+    private static void getResult(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             String columnName1 = resultSet.getMetaData().getColumnName(1);
             String columnName2 = resultSet.getMetaData().getColumnName(2);
