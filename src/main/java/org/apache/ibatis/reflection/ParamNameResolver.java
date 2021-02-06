@@ -141,7 +141,8 @@ public class ParamNameResolver {
         } else {
             // 参数名与值的映射，包含以下两种组合数据
             // 组合1：（参数名，值）
-            // 组合2：（param + 参数顺序， 值）
+            // 组合2：（param + 参数顺序， 值。这个的目的是可以在xml配置直接写param0, param1，不用限制前面传入的参数名称
+            // 同时可以通过arg0, arg1获取到，因为编译后默认值就是arg0, arg1
             final Map<String, Object> param = new ParamMap<>();
             int i = 0;
             for (Map.Entry<Integer, String> entry : names.entrySet()) {

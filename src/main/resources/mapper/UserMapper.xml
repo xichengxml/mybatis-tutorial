@@ -7,6 +7,10 @@
     select * from `user` where id = #{id}
   </select>
 
+    <select id="selectId" resultType="java.lang.Integer">
+    select ${id} from `user` where id = #{id}
+  </select>
+
     <select id="selectByIdAndName" resultType="com.xicheng.mybatis.common.User">
     select * from `user` where id = #{id} and `name`=${name}
   </select>

@@ -133,6 +133,7 @@ public abstract class BaseExecutor implements Executor {
 
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+        // 动态sql在这里才真正赋值，静态sql不在这里赋值，通过jdbc preparedStatement set的方式赋值
         BoundSql boundSql = ms.getBoundSql(parameter);
         CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);
         return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
@@ -325,6 +326,7 @@ public abstract class BaseExecutor implements Executor {
         // 为什么要在这个地方放一下？
         localCache.putObject(key, EXECUTION_PLACEHOLDER);
         try {
+            // *
             list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
         } finally {
             localCache.removeObject(key);

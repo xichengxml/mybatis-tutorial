@@ -9,12 +9,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.InputStream;
 
 /**
- * description 使用xml配置
+ * description $的正确使用
  *
  * @author xichengxml
  * @date 2021/2/1 下午 11:53
  */
-public class C03_MybatisMain {
+public class C05_MybatisMain {
 
     public static void main(String[] args) throws Exception {
         String resource = "mybatis-config.xml";
@@ -26,9 +26,8 @@ public class C03_MybatisMain {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 构造代理对象
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        mapper.select(1);
-        mapper.selectByIdAndName(1, "name");
-
+        int id = mapper.selectId("id", 1);
+        System.out.println(id);
         sqlSession.commit();
         sqlSession.flushStatements();
         sqlSession.close();
